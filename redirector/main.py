@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError, HTTPException
 from fastapi.responses import RedirectResponse
 import uuid
 
@@ -9,10 +10,19 @@ app = FastAPI()
 
 
 @app.exception_handler(404)
-async def handle_not_found(_, __):
+async def handle_not_found(_, __) -> RedirectResponse:
     """
     404 NotFound handler.
     If a route is not found, the user will be redirected to the resources homepage
+    """
+    return RedirectResponse(f"{settings.of_resource_url}/not-found.4", settings.redirect_code)
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(_, __) -> RedirectResponse:
+    """
+    If the id query paramter is not an int or uuid, the validation will fail.
+    In that case we will redirect the user to OF, instead of showing a json with the error.
     """
     return RedirectResponse(f"{settings.of_resource_url}/not-found.4", settings.redirect_code)
 
