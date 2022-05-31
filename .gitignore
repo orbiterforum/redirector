@@ -382,5 +382,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,python,windows,linux,pycharm+all,intellij+all
-
+# Adding requirements.txt since this needs to be generated somewhere during the CI/CD steps
+requirements.txt
 resources.json
