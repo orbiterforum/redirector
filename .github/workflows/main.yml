@@ -25,6 +25,8 @@ jobs:
 
       - name: Setup Poetry
         uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.13
 
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -44,4 +46,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/orbiterforum/redirector:latest
-            "ghcr.io/orbiterforum/redirector:${{steps.project_version.outputs.version}}"
+            ghcr.io/orbiterforum/redirector:${{steps.project_version.outputs.version}}
