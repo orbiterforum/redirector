@@ -29,8 +29,12 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
+      - run: ls
+
       - name: Export requirements.txt
         run: poetry export -f requirements.txt -o requirements.txt
+
+      - run: ls
 
       - name: Build and push
         id: docker_build
