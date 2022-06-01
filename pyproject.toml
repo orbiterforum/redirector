@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "redirector"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["Derk Weijers <derk@weijers.xyz>"]
 
@@ -9,7 +9,7 @@ python = "^3.10"
 fastapi = {extras = ["all"], version = "^0.78.0"}
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.1"
 black = "^22.3.0"
 
 [build-system]
