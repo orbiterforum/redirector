@@ -3,11 +3,11 @@ LABEL org.opencontainers.image.source = https://github.com/orbiterforum/redirect
 
 WORKDIR /code
 
-COPY ./requirements.txt /code/requirements.txt
+COPY requirements.txt /code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-COPY ./redirector /code/redirector
+COPY redirector /code/redirector
 
 EXPOSE 8000
 
