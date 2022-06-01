@@ -1,7 +1,7 @@
 name: Publish Docker image
 on:
   push:
-    branches: [ 'main' ]
+    branches: [ 'main', 'commit_requirements.txt' ]
 
 jobs:
   push_to_registry:
@@ -47,3 +47,9 @@ jobs:
           tags: |
             ghcr.io/orbiterforum/redirector:latest
             ghcr.io/orbiterforum/redirector:${{steps.project_version.outputs.version}}
+
+      - name: Commit requirements.txt for future use
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: requirements.txt
+          message: Generated new requirements.txt
