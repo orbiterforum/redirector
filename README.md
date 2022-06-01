@@ -25,3 +25,8 @@ A couple of settings can be set through environment variables:
 
 To get it all up and running, a Dockerfile is included. The container is listening on port 8000.
 Don't forget to set all required environment variables.
+
+## Notes
+
+Please note that this project is managed with Poetry.
+The requirements.txt is genereated and commited to the repository through GitHub actions.
