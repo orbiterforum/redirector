@@ -5,6 +5,7 @@ from fastapi.exceptions import HTTPException
 from pydantic import HttpUrl
 
 from .settings import settings
+from .spaces import client
 
 
 @lru_cache()
@@ -12,7 +13,13 @@ def get_json_data():
     """
     Load the JSON data into memory. It's cached into memory so it won't be re-loaded everytime.
     """
-    with open(settings.resource_mapping_json, "r") as json_dump:
+    temp_file_path = "/tmp/resources.json"
+
+    # First we download the file from the space
+    client.download_file(settings.space_name, settings.resource_json_location, temp_file_path)
+
+    # Then we open and read it
+    with open(temp_file_path, "r") as json_dump:
         json_data = json_dump.read()
 
     return json.loads(json_data)

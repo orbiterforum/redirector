@@ -1,11 +1,14 @@
 from pydantic import BaseSettings, HttpUrl
-from pydantic.types import FilePath
 
 
 class Settings(BaseSettings):
     redirect_code: int = 307
     of_resource_url: HttpUrl = "https://testforumapp.orbithangar.com/resources"
-    resource_mapping_json: FilePath = "./resources.json"
+    spaces_key: str
+    spaces_secret: str
+    spaces_endpoint: HttpUrl = "https://nyc3.digitaloceanspaces.com"
+    space_name: str = "ohm"
+    resource_json_location: str = "resources/resources.json"
 
 
 settings = Settings()
