@@ -32,6 +32,10 @@ jobs:
       - name: Export requirements.txt
         run: poetry export -f requirements.txt -o requirements.txt
 
+      - name: Get project version
+        id: project_version
+        run: echo "::set-output name=version::$(poetry version -s)"
+
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v3
@@ -40,3 +44,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/orbiterforum/redirector:latest
+            ghcr.io/orbiterforum/redirector:{{steps.project_version.outputs.version}}
