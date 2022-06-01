@@ -1,5 +1,5 @@
 FROM python:3.10
-LABEL org.opencontainers.image.source = https://github.com/orbiterforum/redirector
+LABEL org.opencontainers.image.source https://github.com/orbiterforum/redirector
 
 WORKDIR /code
 
