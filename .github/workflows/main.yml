@@ -44,4 +44,4 @@ jobs:
           push: true
           tags: |
             ghcr.io/orbiterforum/redirector:latest
-            ghcr.io/orbiterforum/redirector:{{steps.project_version.outputs.version}}
+            ghcr.io/orbiterforum/redirector:${{steps.project_version.outputs.version}}
