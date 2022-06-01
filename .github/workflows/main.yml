@@ -1,7 +1,7 @@
 name: Publish Docker image
 on:
   push:
-    branches: [ 'main', 'commit_requirements.txt' ]
+    branches: [ 'main' ]
 
 jobs:
   push_to_registry:

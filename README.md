@@ -25,6 +25,3 @@ A couple of settings can be set through environment variables:
 
 To get it all up and running, a Dockerfile is included. The container is listening on port 8000.
 Don't forget to set all required environment variables.
-
-The `requirements.txt` is gitignored on purpose. It's generated automatically (`poetry export`) through CI/CD when
-needed.
