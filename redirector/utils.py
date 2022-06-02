@@ -7,6 +7,7 @@ from pydantic import HttpUrl
 
 from .settings import settings
 from .spaces import client
+from .logger import logger
 
 
 @lru_cache()
@@ -45,6 +46,7 @@ def find_new_uri_by_id(id: uuid.UUID | int) -> HttpUrl:
             return addon["new_uri"]
 
     # If a request gets here, no match was found thus raising a 404.
+    logger.error(f"Could not find {id} in the resources.json")
     raise HTTPException(404)
 
 
