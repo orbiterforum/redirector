@@ -52,7 +52,7 @@ def find_new_uri_by_id(id: uuid.UUID | int) -> HttpUrl:
     raise HTTPException(404)
 
 
-class UnifiedRedirectResponse(RedirectResponse):
+class UnifiedNotFoundResponse(RedirectResponse):
     """
     A RedirectResponse class, but with defaults set for this project.
     Will redirect to the URL defined in the `of_resource_url` setting and `not-found.92345788934758934` path.
@@ -62,5 +62,5 @@ class UnifiedRedirectResponse(RedirectResponse):
     def __init__(self) -> None:
         super().__init__(
             f"{settings.of_resource_url}/not-found.92345788934758934",
-            status_code=settings.redirect_code,
+            status_code=404,
         )
