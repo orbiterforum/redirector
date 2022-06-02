@@ -9,6 +9,8 @@ URI.
 The application listens on the old OHM endpoints, looks up the requested ID and returns the new URL for this add-on.
 The resources.json file is fetched from one of the spaces on Digital Ocean.
 
+Since this app has only 2 routes (that share the same function), almost everything happens in the main.py module.
+
 ## Settings
 
 A couple of settings can be set through environment variables:
