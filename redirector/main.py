@@ -5,28 +5,28 @@ from fastapi.staticfiles import StaticFiles
 import uuid
 import pathlib
 
-from .utils import find_new_uri_by_id, UnifiedRedirectResponse
+from .utils import find_new_uri_by_id, UnifiedNotFoundResponse
 from .settings import settings
 
 app = FastAPI()
 
 
 @app.exception_handler(404)
-async def handle_not_found(_, __) -> UnifiedRedirectResponse:
+async def handle_not_found(_, __) -> UnifiedNotFoundResponse:
     """
     404 NotFound handler.
     If a route is not found, the user will be redirected to the resources homepage
     """
-    return UnifiedRedirectResponse()
+    return UnifiedNotFoundResponse()
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(_, __) -> UnifiedRedirectResponse:
+async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
     """
     If the id query parameter is not an int or uuid, the validation will fail.
     In that case we will redirect the user to OF, instead of showing a json with the error.
     """
-    return UnifiedRedirectResponse()
+    return UnifiedNotFoundResponse()
 
 
 app.mount(
