@@ -3,7 +3,6 @@ import json
 from functools import lru_cache
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
-from fastapi.datastructures import URL
 from pydantic import HttpUrl
 
 from .settings import settings
