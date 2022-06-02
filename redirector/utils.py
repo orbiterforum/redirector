@@ -18,7 +18,9 @@ def get_json_data():
     temp_file_path = "/tmp/resources.json"
 
     # First we download the file from the space
-    client.download_file(settings.space_name, settings.resource_json_location, temp_file_path)
+    client.download_file(
+        settings.space_name, settings.resource_json_location, temp_file_path
+    )
 
     # Then we open and read it
     with open(temp_file_path, "r") as json_dump:
@@ -58,4 +60,7 @@ class UnifiedRedirectResponse(RedirectResponse):
     """
 
     def __init__(self) -> None:
-        super().__init__(f"{settings.of_resource_url}/not-found.92345788934758934", status_code=settings.redirect_code)
+        super().__init__(
+            f"{settings.of_resource_url}/not-found.92345788934758934",
+            status_code=settings.redirect_code,
+        )
