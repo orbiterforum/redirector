@@ -62,5 +62,5 @@ class UnifiedNotFoundResponse(RedirectResponse):
     def __init__(self) -> None:
         super().__init__(
             f"{settings.of_resource_url}/not-found.92345788934758934",
-            status_code=404,
+            status_code=settings.redirect_code
         )
