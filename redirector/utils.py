@@ -2,6 +2,8 @@ import uuid
 import json
 from functools import lru_cache
 from fastapi.exceptions import HTTPException
+from fastapi.responses import RedirectResponse
+from fastapi.datastructures import URL
 from pydantic import HttpUrl
 
 from .settings import settings
@@ -45,3 +47,14 @@ def find_new_uri_by_id(id: uuid.UUID | int) -> HttpUrl:
 
     # If a request gets here, no match was found thus raising a 404.
     raise HTTPException(404)
+
+
+class UnifiedRedirectResponse(RedirectResponse):
+    """
+    A RedirectResponse class, but with defaults set for this project.
+    Will redirect to the URL defined in the `of_resource_url` setting and `not-found.92345788934758934` path.
+    The redirect code will be the one specified in the `redirect_code` setting.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(f"{settings.of_resource_url}/not-found.92345788934758934", status_code=settings.redirect_code)

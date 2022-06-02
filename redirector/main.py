@@ -1,44 +1,35 @@
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 import uuid
+import pathlib
 
-from .utils import find_new_uri_by_id
+from .utils import find_new_uri_by_id, UnifiedRedirectResponse
 from .settings import settings
 
 app = FastAPI()
 
 
 @app.exception_handler(404)
-async def handle_not_found(_, __) -> RedirectResponse:
+async def handle_not_found(_, __) -> UnifiedRedirectResponse:
     """
     404 NotFound handler.
     If a route is not found, the user will be redirected to the resources homepage
     """
-    return RedirectResponse(
-        f"{settings.of_resource_url}/not-found.4", settings.redirect_code
-    )
+    return UnifiedRedirectResponse()
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(_, __) -> RedirectResponse:
+async def validation_exception_handler(_, __) -> UnifiedRedirectResponse:
     """
     If the id query parameter is not an int or uuid, the validation will fail.
     In that case we will redirect the user to OF, instead of showing a json with the error.
     """
-    return RedirectResponse(
-        f"{settings.of_resource_url}/not-found.4", settings.redirect_code
-    )
+    return UnifiedRedirectResponse()
 
 
-@app.get("/")
-async def redirect_to_home() -> RedirectResponse:
-    """
-    Home route. Will redirect to the main resources module of OF.
-
-    :return: RedirectResponse
-    """
-    return RedirectResponse(settings.of_resource_url, settings.redirect_code)
+app.mount("/", StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"), name="static")
 
 
 @app.get("/showAddon.php")
