@@ -29,7 +29,11 @@ async def validation_exception_handler(_, __) -> UnifiedRedirectResponse:
     return UnifiedRedirectResponse()
 
 
-app.mount("/", StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"), name="static")
+app.mount(
+    "/",
+    StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"),
+    name="static",
+)
 
 
 @app.get("/showAddon.php")
