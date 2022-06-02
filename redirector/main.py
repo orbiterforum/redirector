@@ -29,9 +29,6 @@ async def validation_exception_handler(_, __) -> UnifiedRedirectResponse:
     return UnifiedRedirectResponse()
 
 
-app.mount("/", StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"), name="static")
-
-
 @app.get("/showAddon.php")
 @app.get("/showid.php")
 async def redirect_to_resource(id: uuid.UUID | int) -> RedirectResponse:
@@ -44,3 +41,6 @@ async def redirect_to_resource(id: uuid.UUID | int) -> RedirectResponse:
     """
     new_uri = find_new_uri_by_id(id)
     return RedirectResponse(new_uri, settings.redirect_code)
+
+
+app.mount("/", StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"), name="static")
