@@ -10,13 +10,11 @@ def test_get_addon_by_id():
     assert new_uri == resolved_uri
 
     response = client.get(f"/showAddon.php?id={id_to_test}")
-    # Off while server is being readied
-    # assert response.status_code == 307
+    assert response.status_code == 307
     assert response.url == resolved_uri
 
     response = client.get(f"/showid.php?id={id_to_test}")
-    # Off while server is being readied
-    # assert response.status_code == 307
+    assert response.status_code == 307
     assert response.url == resolved_uri
 
 
@@ -25,17 +23,29 @@ def test_get_addon_by_uuid():
     assert new_uri == resolved_uri
 
     response = client.get(f"/showAddon.php?id={uuid_to_test}")
-    # Off while server is being readied
-    # assert response.status_code == 307
+    assert response.status_code == 307
     assert response.url == resolved_uri
 
     response = client.get(f"/showid.php?id={uuid_to_test}")
-    # Off while server is being readied
-    # assert response.status_code == 307
+    assert response.status_code == 307
     assert response.url == resolved_uri
 
 
 def test_get_addon_by_invalid_id():
     response = client.get("/showAddon.php?id=2378456278356237856")
+    assert response.status_code == 404
+    assert response.url == f"{settings.of_resource_url}/not-found.92345788934758934"
+
+    response = client.get("/showid.php?id=2378456278356237856")
+    assert response.status_code == 404
+    assert response.url == f"{settings.of_resource_url}/not-found.92345788934758934"
+
+
+def test_get_addon_by_invalid_uuid():
+    response = client.get("/showAddon.php?id=58bbd2f7-4266-4327-93cc-f61a999accc1")
+    assert response.status_code == 404
+    assert response.url == f"{settings.of_resource_url}/not-found.92345788934758934"
+
+    response = client.get("/showid.php?id=58bbd2f7-4266-4327-93cc-f61a999accc1")
     assert response.status_code == 404
     assert response.url == f"{settings.of_resource_url}/not-found.92345788934758934"
