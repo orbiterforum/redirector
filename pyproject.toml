@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "redirector"
-version = "1.0.2"
+version = "1.0.3"
 description = ""
 authors = ["Derk Weijers <derk@weijers.xyz>"]
 

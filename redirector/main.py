@@ -43,5 +43,10 @@ async def redirect_to_resource(id: uuid.UUID | int) -> RedirectResponse:
     return RedirectResponse(new_uri, settings.redirect_code)
 
 
+@app.get("/")
+async def index():
+    return RedirectResponse(settings.of_resource_url, status_code=settings.redirect_code)
+
+
 # Mounting the staticfiles
 app.mount("/", StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"), name="static")
