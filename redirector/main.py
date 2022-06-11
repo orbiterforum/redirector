@@ -29,16 +29,33 @@ async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
     return UnifiedNotFoundResponse()
 
 
+@app.exception_handler(AssertionError)
+async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
+    """
+    If the id query parameter is not an int or uuid, the validation will fail.
+    In that case we will redirect the user to OF, instead of showing a json with the error.
+    """
+    return UnifiedNotFoundResponse()
+
+
 @app.get("/showAddon.php")
 @app.get("/showid.php")
-async def redirect_to_resource(id: uuid.UUID | int) -> RedirectResponse:
+async def redirect_to_resource(id: uuid.UUID | int = None, ID: uuid.UUID | int = None) -> RedirectResponse:
     """
     A route that will redirect to the resource on OF based on the original UUID.
     If it can't find the id in the lookup table, it will redirect to the resources homepage.
 
+    Sicne the id can also passed capitalized, we listed for both id and ID.
+
+    :param ID: uuid.UUID | int
     :param id: uuid.UUID | int
     :return: RedirectResponse
     """
+    if ID:
+        id = ID
+
+    assert id
+
     new_uri = find_new_uri_by_id(id)
     return RedirectResponse(new_uri, settings.redirect_code)
 
