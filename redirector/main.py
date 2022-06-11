@@ -40,6 +40,7 @@ async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
 
 @app.get("/showAddon.php")
 @app.get("/showid.php")
+@app.get("/searchid.php")
 async def redirect_to_resource(id: uuid.UUID | int = None, ID: uuid.UUID | int = None) -> RedirectResponse:
     """
     A route that will redirect to the resource on OF based on the original UUID.
