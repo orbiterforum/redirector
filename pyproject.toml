@@ -1,18 +1,28 @@
-[tool.poetry]
+[project]
 name = "redirector"
 version = "1.0.4"
 description = ""
-authors = ["Derk Weijers <derk@weijers.xyz>"]
+authors = [{ name = "Derk Weijers", email = "derk@weijers.xyz" }]
+requires-python = ">=3.10,<4"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "fastapi[all]>=0.78.0,<0.79",
+    "boto3>=1.24.5,<2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-fastapi = { extras = ["all"], version = "^0.78.0" }
-boto3 = "^1.24.5"
-
-[tool.poetry.dev-dependencies]
-pytest = "^7.1"
-black = "^22.3.0"
+[dependency-groups]
+dev = [
+    "pytest>=7.1,<8",
+    "black>=22.3.0,<23",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
