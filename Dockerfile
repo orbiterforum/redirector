@@ -1,14 +1,16 @@
-FROM python:3.10
-LABEL org.opencontainers.image.source https://github.com/orbiterforum/redirector
+FROM python:3.14-slim
 
-WORKDIR /code
+RUN apt-get update && apt-get upgrade \
+    && apt-get purge -y curl && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /code/requirements.txt
+WORKDIR /app
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY pyproject.toml README.md ./
+COPY redirector ./redirector
+RUN pip install --no-cache-dir .
 
-COPY redirector /code/redirector
+COPY entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
 
-EXPOSE 8000
 
-CMD ["uvicorn", "redirector.main:app", "--host", "0.0.0.0", "--use-colors", "--port", "8000"]
+ENTRYPOINT ["./entrypoint.sh"]
