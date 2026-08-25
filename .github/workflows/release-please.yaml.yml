@@ -1,0 +1,35 @@
+name: release-please
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          release-type: python
+
+      # The steps below only run on the workflow run where release-please
+      # actually cuts a release (i.e. the Release PR was just merged), not
+      # on every push to main. This uses release-please's own release_created
+      # output rather than a separately-triggered `release: published`
+      # workflow, since a release created via the default GITHUB_TOKEN would
+      # not trigger a second workflow (GitHub blocks GITHUB_TOKEN-authored
+      # events from starting other workflow runs, to prevent recursion).
+      - name: Install doctl
+        if: ${{ steps.release.outputs.release_created }}
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Deploy to DigitalOcean App Platform
+        if: ${{ steps.release.outputs.release_created }}
+        run: doctl apps create-deployment ${{ secrets.DIGITALOCEAN_APP_ID }} --wait
