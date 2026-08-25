@@ -41,7 +41,9 @@ async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
 @app.get("/showAddon.php")
 @app.get("/showid.php")
 @app.get("/searchid.php")
-async def redirect_to_resource(id: uuid.UUID | int = None, ID: uuid.UUID | int = None) -> RedirectResponse:
+async def redirect_to_resource(
+    id: uuid.UUID | int = None, ID: uuid.UUID | int = None
+) -> RedirectResponse:
     """
     A route that will redirect to the resource on OF based on the original UUID.
     If it can't find the id in the lookup table, it will redirect to the resources homepage.
@@ -63,8 +65,14 @@ async def redirect_to_resource(id: uuid.UUID | int = None, ID: uuid.UUID | int =
 
 @app.get("/")
 async def index():
-    return RedirectResponse(settings.of_resource_url, status_code=settings.redirect_code)
+    return RedirectResponse(
+        settings.of_resource_url, status_code=settings.redirect_code
+    )
 
 
 # Mounting the staticfiles
-app.mount("/", StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"), name="static")
+app.mount(
+    "/",
+    StaticFiles(directory=f"{pathlib.Path(__file__).parent.name}/static"),
+    name="static",
+)
