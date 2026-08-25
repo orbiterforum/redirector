@@ -1,13 +1,14 @@
+from starlette import status
+
 from .shared_data import client
 
 
 def test_robots_txt():
     response = client.get("/robots.txt")
-    assert response.status_code == 200
+    assert response.status_code == status.HTTP_200_OK
 
 
 def test_robots_txt_not_found():
     response = client.get("/robots.txt/demo")
 
-    # The response code will be 307 (or what's defined with `redirect_code`). It should redirect to OF.
-    assert response.status_code == 404
+    assert response.status_code == status.HTTP_404_NOT_FOUND

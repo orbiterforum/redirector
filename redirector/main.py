@@ -1,12 +1,13 @@
+import pathlib
+import uuid
+
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
-import uuid
-import pathlib
 
-from .utils import find_new_uri_by_id, UnifiedNotFoundResponse
 from .settings import settings
+from .utils import UnifiedNotFoundResponse, find_new_uri_by_id
 
 app = FastAPI()
 
@@ -24,7 +25,8 @@ async def handle_not_found(_, __) -> UnifiedNotFoundResponse:
 async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
     """
     If the id query parameter is not an int or uuid, the validation will fail.
-    In that case we will redirect the user to OF, instead of showing a json with the error.
+    In that case we will redirect the user to OF,
+    instead of showing a json with the error.
     """
     return UnifiedNotFoundResponse()
 
@@ -33,7 +35,8 @@ async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
 async def validation_exception_handler(_, __) -> UnifiedNotFoundResponse:
     """
     If the id query parameter is not an int or uuid, the validation will fail.
-    In that case we will redirect the user to OF, instead of showing a json with the error.
+    In that case we will redirect the user to OF,
+    instead of showing a json with the error.
     """
     return UnifiedNotFoundResponse()
 
@@ -46,7 +49,7 @@ async def redirect_to_resource(
 ) -> RedirectResponse:
     """
     A route that will redirect to the resource on OF based on the original UUID.
-    If it can't find the id in the lookup table, it will redirect to the resources homepage.
+    If it can't find the id in the lookup table, it will redirect to the resources page.
 
     Sicne the id can also passed capitalized, we listed for both id and ID.
 

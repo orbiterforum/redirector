@@ -1,6 +1,7 @@
-from fastapi.exceptions import HTTPException
-import pytest
 import uuid
+
+import pytest
+from fastapi.exceptions import HTTPException
 
 from redirector.utils import find_new_uri_by_id
 

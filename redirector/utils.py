@@ -1,19 +1,21 @@
-import uuid
 import json
+import uuid
 from functools import lru_cache
+
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import HttpUrl
 
+from .logger import logger
 from .settings import settings
 from .spaces import client
-from .logger import logger
 
 
-@lru_cache()
+@lru_cache
 def get_json_data():
     """
-    Load the JSON data into memory. It's cached into memory so it won't be re-loaded everytime.
+    Load the JSON data into memory.
+    It's cached into memory so it won't be re-loaded everytime.
     """
     temp_file_path = "/tmp/resources.json"
 
@@ -23,7 +25,7 @@ def get_json_data():
     )
 
     # Then we open and read it
-    with open(temp_file_path, "r") as json_dump:
+    with open(temp_file_path) as json_dump:
         json_data = json_dump.read()
 
     return json.loads(json_data)
@@ -37,7 +39,7 @@ def find_new_uri_by_id(id: uuid.UUID | int) -> HttpUrl:
     :param id: uuid.UUID | int
     :return: HttpUrl
     """
-    if type(id) == uuid.UUID:
+    if isinstance(id, uuid.UUID):
         search_key = "ohm_uuid"
         id = str(id)
     else:
@@ -55,7 +57,9 @@ def find_new_uri_by_id(id: uuid.UUID | int) -> HttpUrl:
 class UnifiedNotFoundResponse(RedirectResponse):
     """
     A RedirectResponse class, but with defaults set for this project.
-    Will redirect to the URL defined in the `of_resource_url` setting and `not-found.92345788934758934` path.
+    Will redirect to the URL defined in the `of_resource_url` setting
+    and `not-found.92345788934758934` path.
+
     The redirect code will be the one specified in the `redirect_code` setting.
     """
 
