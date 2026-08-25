@@ -1,6 +1,6 @@
 [project]
 name = "redirector"
-version = "1.1.0"
+version = "1.2.0"
 description = ""
 authors = [{ name = "Derk Weijers", email = "derk@weijers.xyz" }]
 requires-python = ">=3.10,<4"
