@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/orbiterforum/redirector/compare/v1.2.0...v1.2.1) (2026-09-01)
+
+
+### Dependencies
+
+* package updates ([6a13ebf](https://github.com/orbiterforum/redirector/commit/6a13ebf216f252a71c57acc270b1ed685e899710))
+
 ## [1.2.0](https://github.com/orbiterforum/redirector/compare/v1.1.0...v1.2.0) (2026-08-25)
 
 
