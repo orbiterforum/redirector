@@ -14,14 +14,14 @@ classifiers = [
 ]
 dependencies = [
     "fastapi[all]>=0.141.1,<1",
-    "boto3>=1.43.78,<2",
+    "boto3>=1.43.83,<2",
     "pydantic-settings>=2.15.0",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=9,<10",
-    "ruff>=0.16.4",
+    "ruff>=0.16.5",
 ]
 
 [build-system]
