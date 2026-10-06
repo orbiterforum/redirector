@@ -13,15 +13,15 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "fastapi[all]>=0.141.1,<1",
-    "boto3>=1.43.103,<2",
+    "fastapi[all]>=0.142.2,<1",
+    "boto3>=1.43.108,<2",
     "pydantic-settings>=2.15.0",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=9,<10",
-    "ruff>=0.16.9",
+    "ruff>=0.16.10",
 ]
 
 [build-system]
